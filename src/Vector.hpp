@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <math.h>
+#include <cmath>
 
 class Vector : public sf::Vector2f {
 
@@ -10,16 +10,16 @@ public:
 
 	Vector(float x, float y) : sf::Vector2f(x, y){}
 
-	Vector(float angle) : sf::Vector2f(cos(angle), sin(angle)){}
+	explicit Vector(float angle) : sf::Vector2f(cos(angle), sin(angle)){}
 
-	Vector(sf::Vector2f vec) : sf::Vector2f(vec){}
+	explicit Vector(sf::Vector2f vec) : sf::Vector2f(vec){}
 
 	float getAngle() const {
-		return atan2(y, x);
+		return std::atan2(y, x);
 	}
 
 	float length() const {
-		return sqrt(x * x + y * y);
+		return std::sqrt(x * x + y * y);
 	}
 
 	void normalize(){

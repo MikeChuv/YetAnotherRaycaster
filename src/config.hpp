@@ -1,5 +1,5 @@
 #pragma once
-#include "operations.hpp"
+#include "operations.h"
 
 namespace config{
 
@@ -11,8 +11,9 @@ namespace config{
 
 	const float angleStep = fov / windowWidth;
 	const float screenDistance = windowWidth / (tan(mathOps::radians(fov / 2)) * 2);
+  const int pixelStep = 1;
 
-	const int moveStep = 5;
+	const int moveStep = 1;
 
 
 }

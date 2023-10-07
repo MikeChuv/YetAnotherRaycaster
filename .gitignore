@@ -1,2 +1,10 @@
 
 *.o
+
+cmake-build-debug/
+CMakeFiles/
+.idea/
+YetAnotherRaycaster
+CMakeCache.txt
+cmake_install.cmake
+Makefile

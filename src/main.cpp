@@ -5,10 +5,8 @@
 #include <iostream>
 #include <time.h>
 #include "Boundary.hpp"
-#include "Ray.hpp"
-#include "Particle.hpp"
+#include "Particle.h"
 #include "config.hpp"
-#include "operations.hpp"
 #include "Vector.hpp"
 
 
@@ -29,20 +27,19 @@ int main(){
 
 	srand(time(NULL));
 	std::vector<Boundary> walls;
-	for(int i = 0; i < config::wallCount; ++i){
-		walls.push_back(
-			Boundary(
-				rand() % windowWidth, 
-				rand() % windowHeight, 
-				rand() % windowWidth, 
-				rand() % windowHeight
-			)
-		);
-	}
-	// walls.push_back(Boundary(0, 0, windowWidth, 0));
-	// walls.push_back(Boundary(windowWidth, 0, windowWidth, windowHeight));
-	// walls.push_back(Boundary(windowWidth, windowHeight, 0, windowHeight));
-	// walls.push_back(Boundary(0, windowHeight, 0, 0));
+//	for(int i = 0; i < config::wallCount; ++i){
+//		walls.emplace_back(
+//				rand() % windowWidth,
+//				rand() % windowHeight,
+//				rand() % windowWidth,
+//				rand() % windowHeight
+//
+//		);
+//	}
+	 walls.emplace_back(0, 0, windowWidth, 0);
+	 walls.emplace_back(windowWidth, 0, windowWidth, windowHeight);
+	 walls.emplace_back(windowWidth, windowHeight, 0, windowHeight);
+	 walls.emplace_back(0, windowHeight, 0, 0);
 
 	Particle particle(100, 200, config::fov);
 	sf::Vector2f oldMouse(0, 0);
@@ -81,12 +78,12 @@ int main(){
 		}
 
 		window.clear();
-		for(auto wall : walls) wall.show(window);
+        for(const auto& wall : walls) window.draw(wall);
 		//particle.setPosition(mousePosition);
 		particle.turn(-dMouse.x / 5);
 		particle.look(walls);
-		particle.show(window);
-		
+        window.draw(particle);
+
 		// shape.setPosition(mousePosition);
 		// window.draw(shape);
 		oldMouse = mousePosition;

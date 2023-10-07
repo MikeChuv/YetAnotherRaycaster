@@ -1,10 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "operations.hpp"
+#include "operations.h"
 #include "Vector.hpp"
 
-// TODO: inherit from Drawable and define draw function for RenderWindow RenderTarget
-class Boundary{
+class Boundary : public sf::Drawable{
 
 public:
 
@@ -15,20 +14,16 @@ public:
 		b = Vector(bx, by);
 	}
 
-	float length(){
-		Vector wall = a - b;
+	float length() const{
+		Vector wall(a - b);
 		return wall.length();
 	}
 
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override{
+        sf::Vertex line[] = { sf::Vertex(a),
+                              sf::Vertex(b) };
 
-	void show(sf::RenderWindow& window){
-		sf::Vertex line[] =
-			{
-				sf::Vertex(a),
-				sf::Vertex(b)
-			};
-
-		window.draw(line, 2, sf::Lines);
-	}
+        target.draw(line, 2, sf::Lines);
+    }
 
 };
